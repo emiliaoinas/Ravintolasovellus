@@ -1,0 +1,21 @@
+<h1>Alueesi ravintolat</h1>
+</p>
+<b>Ravintolat</b>
+<p>
+{% for restaurant in restaurants %}
+<ul>
+<li><a href="/restaurant/{{ restaurant[0] }}">{{ restaurant[1] }}</a></li>
+</ul>
+{% else %}
+<p>Alueesi ravintoloita ei ole vielä lisätty!</p>
+{% endfor %}
+
+{% if session.user_id %}
+<b><a href="/new">Lisää uusi ravintola</a></b>
+<p>
+Olet kirjautunut sisään.
+<p>
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<a href="/login">Kirjaudu sisään voidaksesi lisätä arvosteluja ja ravintoloita</a>
+{% endif %}

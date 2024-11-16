@@ -1,0 +1,28 @@
+<h1>{{ restaurant[1] }}</h1>
+<p><i>Aukioloajat:</i> {{ restaurant[2] }}</p>
+<p><i>Kuvaus:</i> {{ restaurant[3] }}</p>
+<p>
+<b>Arvostelut</b>
+{% if reviews %}
+{% for review in reviews %}
+<ul>
+<li>Arvosana: {{ review.rating }} </li>
+<li>Kommentti: {{ review.comment }} </li>
+</ul>
+{% endfor %}
+<p>
+{% else %}
+<p>Tämä ravintola ei ole saanut vielä arvosteluja</p>
+{% endif %}
+
+{% if session.user_id %}
+<u>Kirjoita arvostelu:</u>
+<form action="/submit_review" method="POST">
+<input type="hidden" name="restaurant_id" value="{{ restaurant_id }}">
+<input type="number" name="rating" placeholder="Arvosana 1-5" min="1" max="5" required><br>
+<textarea name="comment" placeholder="Kommentit"></textarea><br>
+<button type="submit">Lisää arvostelu</button>
+</form>
+{% endif %}
+
+<a href="/">Takaisin</a>

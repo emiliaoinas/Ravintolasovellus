@@ -1,0 +1,11 @@
+{% if session.user_id %}
+Kirjoita arvostelu
+<form action="/submit_review" method="POST">
+<input type="hidden" name="restaurant_id" value= {{restaurant[0]}} >
+<input type="number" name="rating" placeholder="Arvosana 1-5" min="1" max="5"><br>
+<textarea name="comment" placeholder="Kommentit"></textarea><br>
+<button type="submit">Lisää arvostelu</button>
+</form>
+{% endif %}
+
+<a href="/">Takaisin</a>
