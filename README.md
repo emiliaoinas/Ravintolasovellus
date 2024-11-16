@@ -15,3 +15,13 @@ Tämän lisäksi ylläpitäjät voivat:
 - Valita mitä tietoja näytetään
 - Poistaa annettuja arviointeja
 - Luoda erilaisia ryhmiä, joihin ravintolat on luokiteltu
+
+## Sovelluksen tilanne 16.11:
+Tällä hetkellä sovelluksessa on mahdollista
+- Luoda käyttäjätunnus
+- Kirjautua sisään ja ulos
+- Tarkastella ravintoloita (eivät tosin vielä ole kartalla, vaan näkyvät listana)
+- Lisätä ravintoloita (tämä on vielä avoin kaikille)
+- Lukea ja lisätä arvosteluja
+
+Sovelluksesta puuttuu vielä yllämainittuja hakuominaisuuksia, karttaominaisuus ja ylläpitäjän toiminnot. Sovellusta voi testata yllä olevien tiedostojen avulla, ja jotta kaikkia tähän mennessä lisättyjä ominaisuuksia voi käyttää, on luotava käyttäjätunnus ja kirjauduttava sisään.
