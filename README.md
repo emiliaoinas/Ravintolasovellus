@@ -25,3 +25,18 @@ Tällä hetkellä sovelluksessa on mahdollista
 - Lukea ja lisätä arvosteluja
 
 Sovelluksesta puuttuu vielä yllämainittuja hakuominaisuuksia, karttaominaisuus ja ylläpitäjän toiminnot. Sovellusta voi testata yllä olevien tiedostojen avulla, ja jotta kaikkia tähän mennessä lisättyjä ominaisuuksia voi käyttää, on luotava käyttäjätunnus ja kirjauduttava sisään.
+
+## Sovelluksen käyttöohjeet
+1. Kloonaa repositorio koneellesi ja luo samaan kansioon .env-tiedosto, joka sisältää nämä:
+   ```
+   DATABASE_URL=<tietokannan-paikallinen-osoite>
+   SECRET_KEY=<salainen-avain>
+   ```
+2. Lataa Python3, jonka jälkeen aktivoi virtuaaliympäristö näillä komennoilla:
+  ```
+  python3 -m venv venv
+  source venv/bin/activate
+  ```
+3. Asenna riippuvuudet komennolla `pip install -r ./requirements.txt`
+4. Luo PostgreSQL-tietokanta ja määritä skeema komennolla `psql < schema.sql`
+5. Käynnistä sovellus komennolla `flask run`
