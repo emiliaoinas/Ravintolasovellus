@@ -33,10 +33,10 @@ Sovelluksesta puuttuu vielä yllämainittuja hakuominaisuuksia, karttaominaisuus
    SECRET_KEY=<salainen-avain>
    ```
 2. Lataa Python3, jonka jälkeen aktivoi virtuaaliympäristö näillä komennoilla:
-  ```
-  python3 -m venv venv
-  source venv/bin/activate
-  ```
+    ```
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
 3. Asenna riippuvuudet komennolla `pip install -r ./requirements.txt`
 4. Luo PostgreSQL-tietokanta ja määritä skeema komennolla `psql < schema.sql`
 5. Käynnistä sovellus komennolla `flask run`
