@@ -21,7 +21,8 @@ def login():
     if users.login(username, password):
         return redirect("/")
     else:
-        return render_template("error.html", message = "Kirjautuminen ei onnistunut")
+        error_message = "Salasana tai käyttäjänimi on väärin"
+        return render_template("login.html", error = error_message)
 
 @app.route("/logout")
 def logout():
