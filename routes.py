@@ -36,10 +36,14 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        if users.register(username, password):
-            return redirect("/")
+        if username == "" or password == "" or bool(username.strip()) == False or bool(password.strip()) == False:
+            return render_template("register.html", error = "Käyttäjänimi tai salasana ei voi olla tyhjä tai koostua pelkistä välilyönneistä")
+        sql = text("SELECT 1 FROM users WHERE username = :username")
+        result = db.session.execute(sql, {"username": username}).fetchone()
+        if result:
+            return render_template("register.html", error = "Käyttäjänimi on jo käytössä")
         else:
-            return render_template("error.html", message = "Rekisteröityminen ei onnistunut")
+            return redirect("/")
 
 @app.route("/create", methods=["POST"])
 def create():
