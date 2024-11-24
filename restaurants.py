@@ -8,9 +8,10 @@ def add_restaurant():
     restaurant_name = request.form["restaurant_name"]
     opening_hours = request.form["opening_hours"]
     restaurant_description = request.form["restaurant_description"]
-    sql = text("INSERT INTO restaurants (restaurant_name, opening_hours, restaurant_description) VALUES (:restaurant_name, :opening_hours, :restaurant_description) RETURNING id")
-    db.session.execute(sql, {"restaurant_name": restaurant_name,"opening_hours": opening_hours,"restaurant_description": restaurant_description})
-    db.session.commit()
+    latitude = request.form["latitude"]
+    longitude = request.form["longitude"]
+    sql = text("INSERT INTO restaurants (restaurant_name, opening_hours, restaurant_description, latitude, longitude) VALUES (:restaurant_name, :opening_hours, :restaurant_description, :latitude, :longitude) RETURNING id")
+    db.session.execute(sql, {"restaurant_name": restaurant_name,"opening_hours": opening_hours,"restaurant_description": restaurant_description, "latitude": latitude, "longitude": longitude})
     return True
     
 # Below a version of the code for when the way to assign admins is ready
