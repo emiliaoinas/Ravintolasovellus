@@ -9,7 +9,9 @@ CREATE TABLE restaurants (
     id SERIAL PRIMARY KEY,
     restaurant_name TEXT,
     opening_hours TEXT,
-    restaurant_description TEXT
+    restaurant_description TEXT,
+    latitude FLOAT,
+    longitude FLOAT
 );
 
 CREATE TABLE reviews (
