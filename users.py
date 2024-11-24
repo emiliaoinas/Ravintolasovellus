@@ -5,13 +5,9 @@ from sqlalchemy.sql import text
 
 def register(username, password):
     hash_value = generate_password_hash(password)
-    try:
-        sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
-        db.session.execute(sql, {"username": username, "password": hash_value})
-        db.session.commit()
-    except Exception as e:
-        print(f"Error: {e}")
-        return False
+    sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
+    db.session.execute(sql, {"username": username, "password": hash_value})
+    db.session.commit()
     return login(username, password)
 
 def login(username, password):
