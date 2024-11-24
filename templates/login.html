@@ -4,5 +4,10 @@ Käyttäjätunnus: <input type="text" name="username">
 Salasana: <input type="password" name="password">
 <p>
 <input type="submit" value="Kirjaudu">
+  
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+
 </form>
 <a href="/register">Luo uusi käyttäjätunnus</a>
