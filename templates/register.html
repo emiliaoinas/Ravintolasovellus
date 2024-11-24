@@ -4,4 +4,9 @@ Käyttäjätunnus: <input type="text" name="username">
 Salasana: <input type="password" name="password">
 <p>
 <input type="submit" value="Vahvista tunnuksen luominen">
+  
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+  
 </form>
