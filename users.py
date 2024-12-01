@@ -38,8 +38,6 @@ def admin_application(application):
 
 def is_admin():
     user_id = session.get("user_id")
-    print(user_id)
     sql = text("SELECT 1 FROM admins WHERE user_id = :user_id")
     result = db.session.execute(sql, {"user_id": user_id}).fetchone()
-    print(result)
     return bool(result)
