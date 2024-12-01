@@ -1,0 +1,22 @@
+<h1>Ylläpitäjähakemus</h1>
+<p>Sivuston ylläpitäjät pitävät huolen siitä, että kaikkien on mukava käyttää sivustoa ja kommentit pysyvät asiallisina. Ylläpitäjät myös voivat lisätä uusia ravintoloita sivustolle.</p>
+<p>Kommentteja saa poistaa vain, jos ne ovat loukkaavia. Asiallisia, rakentavaa kritiikkiä sisältäviä kommetteja ei siis tule poistaa, vaikka ne olisivat negatiivisia.</p>
+<p>Ylläpitäjien tulee toimia yhteisen edun mukaan ja reilusti.</p>
+
+<h2>Täytä alla olevat tiedot hakeaksesi ylläpitäjäksi</h2>
+<form action="/admin_application" method="post">
+    <input type="checkbox" id="terms" name="terms" required>
+    Lupaan toimia reilusti, noudattaa sääntöjä, ja pitää sivuston mukavana paikkana kaikille.
+    <p>
+    <p> Alla voit perustella lyhyesti, miksi haluat olla ylläpitäjä ja miksi sopisit tähän rooliin.</p>
+    <textarea id="application" name="application"></textarea>
+    <p>
+    <input type="submit" value="Lähetä hakemus">
+
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+
+</form>
+<p></p>
+<a href="/">Takaisin</a>
