@@ -16,7 +16,7 @@ Tämän lisäksi ylläpitäjät voivat:
 - Poistaa annettuja arviointeja
 - Luoda erilaisia ryhmiä, joihin ravintolat on luokiteltu
 
-## Sovelluksen tilanne 1.12:
+## Sovelluksen tilanne 1.12.:
 Tällä hetkellä sovelluksessa on mahdollista
 - Luoda käyttäjätunnus
 - Kirjautua sisään ja ulos
