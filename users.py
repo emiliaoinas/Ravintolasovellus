@@ -29,5 +29,17 @@ def logout():
 def user_id():
     return session.get("user_id", 0)
 
+def admin_application(application):
+    user_id = session.get("user_id")
+    sql = text("INSERT INTO admins (user_id, application, start_time) VALUES (:user_id, :application, NOW())")
+    db.session.execute(sql, {"user_id": user_id, "application": application})
+    db.session.commit()
+    return True
+
 def is_admin():
-    return session.get("is_admin", False)
+    user_id = session.get("user_id")
+    print(user_id)
+    sql = text("SELECT 1 FROM admins WHERE user_id = :user_id")
+    result = db.session.execute(sql, {"user_id": user_id}).fetchone()
+    print(result)
+    return bool(result)
