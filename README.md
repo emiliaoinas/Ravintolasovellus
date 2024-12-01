@@ -40,3 +40,5 @@ Sovelluksesta puuttuu vielä yllämainittuja hakuominaisuuksia, karttaominaisuus
 3. Asenna riippuvuudet komennolla `pip install -r ./requirements.txt`
 4. Luo PostgreSQL-tietokanta ja määritä skeema komennolla `psql < schema.sql`
 5. Käynnistä sovellus komennolla `flask run`
+6. Luo käyttäjätunnus tai kirjaudu sisään.
+7. Lähetä ylläpitäjähakemus voidaksesi lisätä uusia ravintoloita ja voidaksesi testata kaikkia toiminnallisuuksia.
