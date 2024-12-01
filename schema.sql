@@ -1,7 +1,7 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY, 
     username TEXT UNIQUE, 
-    password TEXT,
+    password TEXT
 );
 
 CREATE TABLE admins (
@@ -27,10 +27,4 @@ CREATE TABLE reviews (
     rating INTEGER,
     comment TEXT,
     sent_at TIMESTAMP
-);
-
-CREATE TABLE hidden(
-    id SERIAL PRIMARY KEY, 
-    review_id INTEGER REFERENCES reviews,
-    reason TEXT
 );
