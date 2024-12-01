@@ -16,15 +16,24 @@ Tämän lisäksi ylläpitäjät voivat:
 - Poistaa annettuja arviointeja
 - Luoda erilaisia ryhmiä, joihin ravintolat on luokiteltu
 
-## Sovelluksen tilanne 16.11:
+## Sovelluksen tilanne 1.12:
 Tällä hetkellä sovelluksessa on mahdollista
 - Luoda käyttäjätunnus
 - Kirjautua sisään ja ulos
-- Tarkastella ravintoloita (eivät tosin vielä ole kartalla, vaan näkyvät listana)
-- Lisätä ravintoloita (tämä on vielä avoin kaikille)
+- Tarkastella ravintoloita kartalla ja päästä linkin kautta ravintolan sivuille klikkaamalla kohdetta kartalla
 - Lukea ja lisätä arvosteluja
+- Hakea ylläpitäjäksi
 
-Sovelluksesta puuttuu vielä yllämainittuja hakuominaisuuksia, karttaominaisuus ja ylläpitäjän toiminnot. Sovellusta voi testata yllä olevien tiedostojen avulla, ja jotta kaikkia tähän mennessä lisättyjä ominaisuuksia voi käyttää, on luotava käyttäjätunnus ja kirjauduttava sisään.
+Ylläpitäjät voivat myös
+- Lisätä ravintoloita
+- Poistaa arviointeja
+
+Sovelluksesta puuttuu vielä
+- Ravintoloiden poistaminen ja haluttujen tietojen piilottaminen
+- Ravintoloiden etsiminen hakusanan avulla ja mahdollisuus nähdä ravintolat listattuna
+- Ryhmät, joihin ravintolat on luokiteltu
+
+Myös sivujen ulkoasu on kesken, ja se on vielä yksinkertaisessa muodossa.
 
 ## Sovelluksen käyttöohjeet
 1. Kloonaa repositorio koneellesi ja luo samaan kansioon .env-tiedosto, joka sisältää nämä:
