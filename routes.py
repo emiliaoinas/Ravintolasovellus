@@ -58,8 +58,11 @@ def admin_application():
             return render_template("admin_application.html", error = "Hakemuksesi on liian lyhyt, minimivaatimus on 5 sanaa")
         if users.is_admin:
             return render_template("admin_application.html", error = "Olet jo ylläpitäjä")
+        success = users.admin_application(application)
+        if success:
+            return redirect("/")
         else:
-            users.admin_application(application)
+            return render_template("admin_application.html", error="Hakemuksen lähettäminen epäonnistui. Yritä uudelleen.")
 
 @app.route("/create", methods=["POST"])
 def create():
