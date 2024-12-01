@@ -1,21 +1,35 @@
-<h1>Alueesi ravintolat</h1>
-</p>
-<b>Ravintolat</b>
-<p>
-{% for restaurant in restaurants %}
-<ul>
-<li><a href="/restaurant/{{ restaurant[0] }}">{{ restaurant[1] }}</a></li>
-</ul>
-{% else %}
-<p>Alueesi ravintoloita ei ole vielä lisätty!</p>
-{% endfor %}
+<style>
+    #map {
+        width: 800px;
+        height: 500px;
+        margin-bottom: 10px;
+    }
+    .container {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    p {
+    margin: 10px 0;
+    padding: 0;
+    }
 
-{% if session.user_id %}
-<b><a href="/new">Lisää uusi ravintola</a></b>
-<p>
-Olet kirjautunut sisään.
-<p>
-<a href="/logout">Kirjaudu ulos</a>
-{% else %}
-<a href="/login">Kirjaudu sisään voidaksesi lisätä arvosteluja ja ravintoloita</a>
-{% endif %}
+</style>
+
+<div class="container">
+    <h1>Alueesi ravintolat</h1>
+    <div id="map">
+        {{ map | safe }}
+    </div>
+    {% if session.user_id %}
+    <b><a href="/new">Lisää uusi ravintola</a></b>
+    <p>
+    Olet kirjautunut sisään.
+    <p>
+    <a href="/logout">Kirjaudu ulos</a>
+    {% else %}
+    <a href="/login">Kirjaudu sisään voidaksesi lisätä arvosteluja ja ravintoloita</a>
+    {% endif %}
+</div>
