@@ -8,6 +8,12 @@
 <ul>
 <li>Arvosana: {{ review.rating }} </li>
 <li>Kommentti: {{ review.comment }} </li>
+{% if admin_status %}
+<form action="/delete_review" method="POST">
+<input type="hidden" name="review_id" value="{{ review.id}}">
+<button type="submit">Poista arvostelu</button>
+</form>
+{% endif %}
 </ul>
 {% endfor %}
 <p>
@@ -20,7 +26,7 @@
 <form action="/submit_review" method="POST">
 <input type="hidden" name="restaurant_id" value="{{ restaurant_id }}">
 <input type="number" name="rating" placeholder="Arvosana 1-5" min="1" max="5" required><br>
-<textarea name="comment" placeholder="Kommentit"></textarea><br>
+<textarea name="comment" placeholder="Kommentit" required></textarea><br>
 <button type="submit">Lisää arvostelu</button>
 </form>
 {% endif %}
