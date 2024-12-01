@@ -1,7 +1,6 @@
 from db import db
 from flask import request
 from sqlalchemy.sql import text
-import users
 
 def add_restaurant():
     restaurant_name = request.form["restaurant_name"]
