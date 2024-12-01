@@ -6,10 +6,9 @@ from db import db
 
 @app.route("/")
 def index():
-    sql = text("SELECT id, restaurant_name FROM restaurants")
-    result = db.session.execute(sql)
-    restaurants = result.fetchall()
-    return render_template("index.html", restaurants = restaurants)
+    admin_status = users.is_admin()
+    map = maps.create_map()
+    return render_template("index.html", map = map, admin_status = admin_status)
     
 @app.route("/login",methods=["GET", "POST"])
 def login():
@@ -78,10 +77,10 @@ def restaurant(id):
     sql = text("SELECT id, restaurant_name, opening_hours, restaurant_description FROM restaurants WHERE id=:id")
     result = db.session.execute(sql, {"id": id})
     restaurant = result.fetchone()
-    sql = text("SELECT restaurant_id, rating, comment FROM reviews WHERE restaurant_id=:restaurant_id")
+    sql = text("SELECT id, restaurant_id, rating, comment, sent_at FROM reviews WHERE restaurant_id=:restaurant_id")
     result = db.session.execute(sql, {"restaurant_id": id})
     reviews = result.fetchall()
-    return render_template("restaurant.html", restaurant=restaurant, reviews=reviews, restaurant_id = id)
+    return render_template("restaurant.html", restaurant=restaurant, reviews=reviews, restaurant_id = id, admin_status = admin_status)
 
 @app.route("/submit_review", methods=["POST"])
 def submit_review():
@@ -93,3 +92,9 @@ def submit_review():
         return redirect(f"/restaurant/{restaurant_id}")
     else:
         return render_template("error.html", message = "Palautteen lähettäminen ei onnistunut")
+
+@app.route("/delete_review", methods=["POST"])
+def delete_review():
+    review_id = request.form["review_id"]
+    reviews.delete_review(review_id)
+    return redirect("/")
