@@ -10,3 +10,9 @@ def submit_review(rating, comment, restaurant_id):
     db.session.execute(sql, {"restaurant_id": restaurant_id, "rating": rating, "comment": comment, "user_id": user_id})
     db.session.commit()
     return True
+    
+def delete_review(review_id):
+    sql = text("DELETE FROM reviews WHERE id = :review_id")
+    db.session.execute(sql, {"review_id": review_id})
+    db.session.commit()
+    return True
