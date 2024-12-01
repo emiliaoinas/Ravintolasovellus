@@ -44,6 +44,22 @@ def register():
             return render_template("register.html", error = "Käyttäjänimi on jo käytössä")
         else:
             return redirect("/")
+            
+@app.route("/admin_application", methods=["GET", "POST"])
+def admin_application():
+    if request.method == "GET":
+        return render_template("admin_application.html")
+    if request.method == "POST":
+        application = request.form["application"]
+        terms_accepted = "terms" in request.form
+        if not terms_accepted:
+            return render_template("admin_application.html", error = "Voidaksesi hakea ylläpitäjäksi, sinun on hyväksyttävä ehdot")
+        if len(application.strip().split()) < 5:
+            return render_template("admin_application.html", error = "Hakemuksesi on liian lyhyt, minimivaatimus on 5 sanaa")
+        if users.is_admin:
+            return render_template("admin_application.html", error = "Olet jo ylläpitäjä")
+        else:
+            users.admin_application(application)
 
 @app.route("/create", methods=["POST"])
 def create():
