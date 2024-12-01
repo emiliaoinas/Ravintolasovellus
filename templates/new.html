@@ -1,18 +1,18 @@
 <h1>Lisää uusi ravintola</h1>
 <form action="/create" method="POST">
 <label for="restaurant_name">Ravintolan nimi:</label><br>
-<input type="text" name="restaurant_name"><br><br>
+<input type="text" name="restaurant_name" required><br><br>
 <label for="opening_hours">Aukioloajat:</label><br>
-<input type="text" name="opening_hours"><br><br>
+<input type="text" name="opening_hours" required><br><br>
 <label for="restaurant_description">Kuvaus:</label><br>
 <textarea name="restaurant_description" ></textarea><br><br>
 
 <p><u>Koordinaatit:</u></p>
 <p>Anna koordinaatit WGS84-koordinaattijärjestelmässä (EPSG:4326)</p>
 <label for="latitude">Leveysaste:</label><br>
-<input type="float" name="latitude"><br><br>
+<input type="float" name="latitude" required><br><br>
 <label for="longitude">Pituusaste:</label><br>
-<input type="float" name="longitude"><br><br>
+<input type="float" name="longitude" required><br><br>
 
 <button type="submit">Lisää ravintola</button>
 </form>
