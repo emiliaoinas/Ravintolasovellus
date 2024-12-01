@@ -23,13 +23,16 @@
     <div id="map">
         {{ map | safe }}
     </div>
-    {% if session.user_id %}
-    <b><a href="/new">Lisää uusi ravintola</a></b>
-    <p>
-    Olet kirjautunut sisään.
-    <p>
-    <a href="/logout">Kirjaudu ulos</a>
-    {% else %}
-    <a href="/login">Kirjaudu sisään voidaksesi lisätä arvosteluja ja ravintoloita</a>
-    {% endif %}
+        {% if session.get("user_id") %}
+            <p>Olet kirjautunut sisään.</p>
+            <p></p>
+            {% if not admin_status %}
+                <a href="/admin_application">Hae ylläpitäjäksi</a>
+            {% elif admin_status %}
+                <p><b><a href="/new">Lisää uusi ravintola</a></b></p>
+            {% endif %}
+            <p><a href="/logout">Kirjaudu ulos</a></p>
+        {% else %}
+            <p><a href="/login">Kirjaudu sisään voidaksesi lisätä arvosteluja ja ravintoloita</a></p>
+        {% endif %}
 </div>
