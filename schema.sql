@@ -28,3 +28,9 @@ CREATE TABLE reviews (
     comment TEXT,
     sent_at TIMESTAMP
 );
+
+CREATE TABLE hidden(
+    id SERIAL PRIMARY KEY, 
+    review_id INTEGER REFERENCES reviews,
+    reason TEXT
+);
