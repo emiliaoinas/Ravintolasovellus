@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, redirect
 from sqlalchemy.sql import text
-import restaurants, reviews, users
+import restaurants, reviews, users, maps
 from db import db
 
 @app.route("/")
