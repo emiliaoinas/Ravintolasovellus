@@ -51,3 +51,4 @@ Myös sivujen ulkoasu on kesken, ja se on vielä yksinkertaisessa muodossa.
 5. Käynnistä sovellus komennolla `flask run`
 6. Luo käyttäjätunnus tai kirjaudu sisään.
 7. Lähetä ylläpitäjähakemus voidaksesi lisätä uusia ravintoloita ja voidaksesi testata kaikkia toiminnallisuuksia.
+8. Luo vähintään yksi ravintola ollessasi ylläpitäjä, jotta voit testata sovelluksen eri ominaisuuksia.
