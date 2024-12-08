@@ -105,7 +105,10 @@ def restaurant(id):
     sql = text("SELECT id, restaurant_id, rating, comment, sent_at FROM reviews WHERE restaurant_id=:restaurant_id")
     result = db.session.execute(sql, {"restaurant_id": id})
     reviews = result.fetchall()
-    return render_template("restaurant.html", restaurant=restaurant, reviews=reviews, restaurant_id = id, admin_status = admin_status)
+    sql = text("SELECT id, restaurant_id, group_name FROM groups WHERE restaurant_id=:restaurant_id")
+    result = db.session.execute(sql, {"restaurant_id": id})
+    groups = result.fetchall()
+    return render_template("restaurant.html", restaurant=restaurant, reviews=reviews, restaurant_id = id, admin_status = admin_status, groups = groups)
 
 @app.route("/submit_review", methods=["POST"])
 def submit_review():
