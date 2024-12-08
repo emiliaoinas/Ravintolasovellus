@@ -35,6 +35,13 @@
 <input type="number" name="rating" placeholder="Arvosana 1-5" min="1" max="5" required><br>
 <textarea name="comment" placeholder="Kommentit" required></textarea><br>
 <button type="submit">Lisää arvostelu</button>
+
+{% if errors %}
+{% for error in errors %}
+<p>{{ error }}</p>
+{% endfor %}
+{% endif %}
+
 </form>
 {% endif %}
 
