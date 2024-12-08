@@ -1,0 +1,30 @@
+<h1>Etsi ravintoloita</h1>
+<p>Voit hakea ravintoloita esimerkiksi niiden nimen tai luokan perusteella. Käytä yhtä hakusanaa kerrallaan.</p>
+<p></p>
+<form action="/find_restaurant" method="POST">
+    Hakusana: <input type="text" placeholder="Hakusana" name="keyword">
+<button type="submit">Hae</button>
+</form>
+
+{% if errors %}
+{% for error in errors %}
+<p>{{ error }}</p>
+{% endfor %}
+{% endif %}
+
+{% if results is not none %}
+    {% if results %}
+        <h2>Hakutulokset:</h2>
+        <ul>
+            {% for result in results %}
+            <li><a href="/restaurant/{{ result.id }}">{{ result.restaurant_name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+    <p>Tällä haulla ei löytynyt ravintoloita.</p>
+    {% endif %}
+{% endif %}
+
+<p><a href="/sorted_restaurants">Katso parhaat ravintolat arvostelujen perusteella</a></p>
+<p></p>
+<a href="/">Takaisin</a>
