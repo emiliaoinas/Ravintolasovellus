@@ -49,20 +49,20 @@ def admin_application():
     if request.method == "GET":
         return render_template("admin_application.html")
     if request.method == "POST":
+        errors = []
         application = request.form["application"]
         terms_accepted = "terms" in request.form
         if not terms_accepted:
-            return render_template("admin_application.html", error = "Voidaksesi hakea ylläpitäjäksi, sinun on hyväksyttävä ehdot")
+            errors.append("Voidaksesi hakea ylläpitäjäksi, sinun on hyväksyttävä ehdot")
         if len(application.strip().split()) < 5:
-            return render_template("admin_application.html", error = "Hakemuksesi on liian lyhyt, minimivaatimus on 5 sanaa")
-        if users.is_admin:
-            return render_template("admin_application.html", error = "Olet jo ylläpitäjä")
-        success = users.admin_application(application)
-        if success:
+            errors.append("Hakemuksesi on liian lyhyt, minimivaatimus on 5 sanaa")
+        if users.is_admin():
+            errors.append("Olet jo ylläpitäjä, sinun ei tarvitse hakea uudelleen")
+        if len(errors) == 0:
+            users.admin_application(application)
             return redirect("/")
         else:
-            return render_template("admin_application.html", error="Hakemuksen lähettäminen epäonnistui. Yritä uudelleen.")
-
+            return render_template("admin_application.html", errors = errors)
 @app.route("/sorted_restaurants")
 def show_restaurants():
     restaurant_list = restaurants.sorted_restaurants()
