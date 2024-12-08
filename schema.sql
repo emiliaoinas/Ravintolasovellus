@@ -28,3 +28,9 @@ CREATE TABLE reviews (
     comment TEXT,
     sent_at TIMESTAMP
 );
+
+CREATE TABLE groups (
+    id SERIAL PRIMARY KEY,
+    restaurant_id INTEGER REFERENCES restaurants,
+    group_name TEXT
+);
