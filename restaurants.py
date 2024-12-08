@@ -12,3 +12,9 @@ def add_restaurant():
     db.session.execute(sql, {"restaurant_name": restaurant_name,"opening_hours": opening_hours,"restaurant_description": restaurant_description, "latitude": latitude, "longitude": longitude})
     db.session.commit()
     return True
+
+def delete_restaurant(restaurant_id):
+    sql = text("DELETE FROM restaurants WHERE id = :restaurant_id")
+    db.session.execute(sql, {"restaurant_id": restaurant_id})
+    db.session.commit()
+    return True
