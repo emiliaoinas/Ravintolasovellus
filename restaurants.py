@@ -18,3 +18,16 @@ def delete_restaurant(restaurant_id):
     db.session.execute(sql, {"restaurant_id": restaurant_id})
     db.session.commit()
     return True
+
+def sorted_restaurants():
+    sql = text("""
+        SELECT r.id, r.restaurant_name, 
+        COALESCE(AVG(rw.rating), 0) AS average_rating
+        FROM restaurants r
+        LEFT JOIN reviews rw ON r.id = rw.restaurant_id
+        GROUP BY r.id, r.restaurant_name
+        ORDER BY average_rating DESC;
+    """)
+    result = db.session.execute(sql)
+    restaurants = result.fetchall()
+    return restaurants
