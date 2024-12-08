@@ -19,6 +19,12 @@ def delete_restaurant(restaurant_id):
     db.session.commit()
     return True
 
+def add_group(restaurant_id, group_name):
+    sql = text("INSERT INTO groups (restaurant_id, group_name) VALUES (:restaurant_id, :group_name)")
+    db.session.execute(sql, {"restaurant_id": restaurant_id, "group_name": group_name})
+    db.session.commit()
+    return True
+
 def sorted_restaurants():
     sql = text("""
         SELECT r.id, r.restaurant_name, 
