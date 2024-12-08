@@ -150,3 +150,23 @@ def delete_restaurant():
     restaurant_id = request.form["restaurant_id"]
     restaurants.delete_restaurant(restaurant_id)
     return redirect("/")
+
+@app.route("/add_group", methods=["POST"])
+def add_group():
+    errors = []
+    restaurant_id = request.form["restaurant_id"]
+    group_name = request.form["group_name"]
+    if bool(group_name.strip()) == False:
+        errors.append("Ryhmän nimi ei voi olla tyhjä!")
+    if len(errors) == 0:
+        restaurants.add_group(restaurant_id, group_name)
+        return redirect("/")
+    else:
+        admin_status = users.is_admin()
+        sql = text("SELECT id, restaurant_name, opening_hours, restaurant_description FROM restaurants WHERE id=:id")
+        result = db.session.execute(sql, {"id": restaurant_id})
+        restaurant = result.fetchone()
+        sql = text("SELECT id, restaurant_id, rating, comment, sent_at FROM reviews WHERE restaurant_id=:restaurant_id")
+        result = db.session.execute(sql, {"restaurant_id": restaurant_id})
+        all_reviews = result.fetchall()
+        return render_template("restaurant.html", restaurant = restaurant, reviews = all_reviews, restaurant_id = restaurant_id, admin_status = admin_status, errors = errors)
