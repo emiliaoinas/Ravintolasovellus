@@ -1,4 +1,11 @@
 <h1>{{ restaurant[1] }}</h1>
+{% if admin_status %}
+<form action="/delete_restaurant" method="POST">
+<input type="hidden" name="restaurant_id" value="{{ restaurant_id}}">
+<button type="submit">Poista ravintola</button>
+</form>
+{% endif %}
+
 <p><i>Aukioloajat:</i> {{ restaurant[2] }}</p>
 <p><i>Kuvaus:</i> {{ restaurant[3] }}</p>
 <p>
