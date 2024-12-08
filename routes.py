@@ -33,14 +33,17 @@ def register():
     if request.method == "GET":
         return render_template("register.html")
     if request.method == "POST":
+        errors = []
         username = request.form["username"]
         password = request.form["password"]
         if username == "" or password == "" or bool(username.strip()) == False or bool(password.strip()) == False:
-            return render_template("register.html", error="Käyttäjänimi tai salasana ei voi olla tyhjä tai koostua pelkistä välilyönneistä")
+            errors.append("Käyttäjänimi tai salasana ei voi olla tyhjä tai koostua pelkistä välilyönneistä")
         sql = text("SELECT 1 FROM users WHERE username = :username")
         result = db.session.execute(sql, {"username": username}).fetchone()
         if result:
-            return render_template("register.html", error="Käyttäjänimi on jo käytössä")
+            errors.append("Käyttäjänimi on jo käytössä, valitse toinen nimi")
+        if len(errors) > 0:
+            return render_template("register.html", errors = errors)
         if users.register(username, password):
             return redirect("/")
             
