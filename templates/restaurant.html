@@ -28,6 +28,26 @@
 <p>Tämä ravintola ei ole saanut vielä arvosteluja</p>
 {% endif %}
 
+<p><b>Ravintola kuuluu ryhmiin:</b></p>
+{% if groups %}
+<ul>
+    {% for group in groups %}
+    <li>{{ group[2] }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Ravintola ei kuulu vielä mihinkään ryhmään</p>
+{% endif %}
+
+{% if admin_status %}
+<u>Lisää ravintola ryhmään:</u>
+<form action="/add_group" method="POST">
+    <input type="hidden" name="restaurant_id" value="{{ restaurant_id}}">
+    <input type="text" name="group_name" placeholder="Ryhmän nimi">
+    <button type="submit">Lisää ravintola ryhmään</button>
+</form>
+{% endif %}
+
 {% if session.user_id %}
 <u>Kirjoita arvostelu:</u>
 <form action="/submit_review" method="POST">
