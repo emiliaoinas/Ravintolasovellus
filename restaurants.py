@@ -31,3 +31,14 @@ def sorted_restaurants():
     result = db.session.execute(sql)
     restaurants = result.fetchall()
     return restaurants
+
+def find_restaurant(keyword):
+    keyword = f"%{keyword}%"
+    sql = text("""
+        SELECT DISTINCT r.id, r.restaurant_name
+        FROM restaurants r
+        LEFT JOIN groups g ON r.id = g.restaurant_id
+        WHERE r.restaurant_name ILIKE :keyword OR g.group_name ILIKE :keyword
+    """)
+    result = db.session.execute(sql, {"keyword": keyword})
+    return result.fetchall()
