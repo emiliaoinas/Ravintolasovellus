@@ -98,3 +98,9 @@ def delete_review():
     review_id = request.form["review_id"]
     reviews.delete_review(review_id)
     return redirect("/")
+
+@app.route("/delete_restaurant", methods=["POST"])
+def delete_restaurant():
+    restaurant_id = request.form["restaurant_id"]
+    restaurants.delete_restaurant(restaurant_id)
+    return redirect("/")
