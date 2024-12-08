@@ -133,8 +133,8 @@ def submit_review():
         restaurant = result.fetchone()
         sql = text("SELECT id, restaurant_id, rating, comment, sent_at FROM reviews WHERE restaurant_id=:restaurant_id")
         result = db.session.execute(sql, {"restaurant_id": restaurant_id})
-        reviews = result.fetchall()
-        return render_template("restaurant.html", restaurant = restaurant, reviews = reviews, restaurant_id = restaurant_id, admin_status = admin_status, errors = errors)
+        all_reviews = result.fetchall()
+        return render_template("restaurant.html", restaurant = restaurant, reviews = all_reviews, restaurant_id = restaurant_id, admin_status = admin_status, errors = errors)
 
 @app.route("/delete_review", methods=["POST"])
 def delete_review():
