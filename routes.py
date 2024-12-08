@@ -63,6 +63,11 @@ def admin_application():
         else:
             return render_template("admin_application.html", error="Hakemuksen lähettäminen epäonnistui. Yritä uudelleen.")
 
+@app.route("/sorted_restaurants")
+def show_restaurants():
+    restaurant_list = restaurants.sorted_restaurants()
+    return render_template('sorted_restaurants.html', listed_restaurants = restaurant_list)
+
 @app.route("/create", methods=["POST"])
 def create():
     restaurants.add_restaurant()
