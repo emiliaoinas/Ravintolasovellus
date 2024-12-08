@@ -72,6 +72,22 @@ def show_restaurants():
     restaurant_list = restaurants.sorted_restaurants()
     return render_template("sorted_restaurants.html", listed_restaurants = restaurant_list)
 
+@app.route("/find_restaurant", methods=["GET", "POST"])
+def search_restaurants():
+    if request.method == "GET":
+        return render_template("find_restaurant.html", results = None, error = None)
+    if request.method == "POST":
+        errors = []
+        keyword = request.form["keyword"]
+        if bool(keyword.strip()) == False:
+            errors.append("Hakusana ei voi olla tyhjä!")
+        if len(keyword.split()) > 1:
+            errors.append("Hakusanoja voi olla vain yksi kerralla!")
+        if len(errors) > 0:
+            return render_template("find_restaurant.html", results = None, errors = errors)
+        result = restaurants.find_restaurant(keyword)
+        return render_template("find_restaurant.html", results = result, keyword = keyword)
+
 @app.route("/create", methods=["POST"])
 def create():
     restaurants.add_restaurant()
