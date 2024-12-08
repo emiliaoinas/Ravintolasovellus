@@ -5,8 +5,10 @@ Salasana: <input type="password" name="password">
 <p>
 <input type="submit" value="Vahvista tunnuksen luominen">
   
-{% if error %}
+{% if errors %}
+{% for error in errors %}
 <p>{{ error }}</p>
+{% endfor %}
 {% endif %}
   
 </form>
