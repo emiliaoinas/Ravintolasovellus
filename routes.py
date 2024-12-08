@@ -89,14 +89,32 @@ def restaurant(id):
 
 @app.route("/submit_review", methods=["POST"])
 def submit_review():
-    rating = request.form["rating"]
-    comment = request.form["comment"]
+    errors = []
+    try:
+        rating = int(request.form["rating"])
+        if rating < 1 or rating > 5:
+            errors.append("Arvosanan on oltava 1-5") 
+    except ValueError:
+        errors.append("Arvosanan on oltava kokonaisluku välillä 1-5.")
+
+    comment = request.form["comment"].strip()
+    if not comment:
+        errors.append("Kommentti ei voi olla tyhjä tai koostua pelkistä välilyönneistä")
     restaurant_id = request.form["restaurant_id"]
-    submission = reviews.submit_review(rating, comment, restaurant_id)
-    if submission:
+    
+    if len(errors) == 0:
+        reviews.submit_review(rating, comment, restaurant_id)
         return redirect(f"/restaurant/{restaurant_id}")
-    else:
-        return render_template("error.html", message = "Palautteen lähettäminen ei onnistunut")
+    
+    else: 
+        admin_status = users.is_admin()
+        sql = text("SELECT id, restaurant_name, opening_hours, restaurant_description FROM restaurants WHERE id=:id")
+        result = db.session.execute(sql, {"id": restaurant_id})
+        restaurant = result.fetchone()
+        sql = text("SELECT id, restaurant_id, rating, comment, sent_at FROM reviews WHERE restaurant_id=:restaurant_id")
+        result = db.session.execute(sql, {"restaurant_id": restaurant_id})
+        reviews = result.fetchall()
+        return render_template("restaurant.html", restaurant = restaurant, reviews = reviews, restaurant_id = restaurant_id, admin_status = admin_status, errors = errors)
 
 @app.route("/delete_review", methods=["POST"])
 def delete_review():
