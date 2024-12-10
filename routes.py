@@ -90,8 +90,22 @@ def search_restaurants():
 
 @app.route("/create", methods=["POST"])
 def create():
-    restaurants.add_restaurant()
-    return redirect("/")
+    errors = []
+    name = request.form["restaurant_name"]
+    coordinates = (request.form["latitude"], request.form["longitude"])
+    latitude_str = coordinates[0].strip()
+    longitude_str = coordinates[1].strip()
+    if bool(name.strip()) == False:
+        errors.append("Nimi ei voi olla tyhjä!")
+    if not latitude_str or not longitude_str:
+        errors.append("Koordinaatit eivät voi olla tyhjä!")
+    elif not (latitude_str.replace('.', '', 1).isdigit() and longitude_str.replace('.', '', 1).isdigit()):
+            errors.append("Koordinaattien on oltava numeroita, ja niissä on käytettävä pistettä pilkun sijaan!")
+    if len(errors) > 0:
+        return render_template("new.html", errors = errors)
+    else:
+        restaurants.add_restaurant()
+        return redirect("/")
 
 @app.route("/new")
 def new():
