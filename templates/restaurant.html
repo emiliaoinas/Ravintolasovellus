@@ -6,8 +6,12 @@
 </form>
 {% endif %}
 
+{% if restaurant[2]|length > 0 %}
 <p><i>Aukioloajat:</i> {{ restaurant[2] }}</p>
+{% endif %}
+{% if restaurant[3]|length > 0 %}
 <p><i>Kuvaus:</i> {{ restaurant[3] }}</p>
+{% endif %}
 <p>
 <b>Arvostelut</b>
 {% if reviews %}
