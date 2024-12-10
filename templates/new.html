@@ -1,20 +1,30 @@
 <h1>Lisää uusi ravintola</h1>
+
+<i>Ravintolan nimi ja sijaintitiedot ovat pakollisia. </i>
+<p></p>
 <form action="/create" method="POST">
 <label for="restaurant_name">Ravintolan nimi:</label><br>
-<input type="text" name="restaurant_name" required><br><br>
+<input type="text" name="restaurant_name"><br><br>
 <label for="opening_hours">Aukioloajat:</label><br>
-<input type="text" name="opening_hours" required><br><br>
+<input type="text" name="opening_hours"><br><br>
 <label for="restaurant_description">Kuvaus:</label><br>
 <textarea name="restaurant_description" ></textarea><br><br>
 
 <p><u>Koordinaatit:</u></p>
-<p>Anna koordinaatit WGS84-koordinaattijärjestelmässä (EPSG:4326)</p>
+<p>Anna koordinaatit WGS84-koordinaattijärjestelmässä (EPSG:4326) desimaaliluvulla ilmaistuna. Muista käyttää pistettä!</p>
 <label for="latitude">Leveysaste:</label><br>
-<input type="float" name="latitude" required><br><br>
+<input type="float" name="latitude"><br><br>
 <label for="longitude">Pituusaste:</label><br>
-<input type="float" name="longitude" required><br><br>
+<input type="float" name="longitude"><br><br>
 
 <button type="submit">Lisää ravintola</button>
+
+{% if errors %}
+{% for error in errors %}
+<p>{{ error }}</p>
+{% endfor %}
+{% endif %}
+
 </form>
 
 <a href="/">Takaisin</a>
