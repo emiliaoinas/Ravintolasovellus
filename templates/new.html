@@ -1,30 +1,46 @@
-<h1>Lisää uusi ravintola</h1>
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<i>Ravintolan nimi ja sijaintitiedot ovat pakollisia. </i>
-<p></p>
-<form action="/create" method="POST">
-<label for="restaurant_name">Ravintolan nimi:</label><br>
-<input type="text" name="restaurant_name"><br><br>
-<label for="opening_hours">Aukioloajat:</label><br>
-<input type="text" name="opening_hours"><br><br>
-<label for="restaurant_description">Kuvaus:</label><br>
-<textarea name="restaurant_description" ></textarea><br><br>
+<body>
+    <div class="header">
+        <h1>Lisää uusi ravintola</h1>
+    </div>
 
-<p><u>Koordinaatit:</u></p>
-<p>Anna koordinaatit WGS84-koordinaattijärjestelmässä (EPSG:4326) desimaaliluvulla ilmaistuna. Muista käyttää pistettä!</p>
-<label for="latitude">Leveysaste:</label><br>
-<input type="float" name="latitude"><br><br>
-<label for="longitude">Pituusaste:</label><br>
-<input type="float" name="longitude"><br><br>
+    <div class="content">
+        <i>Ravintolan nimi ja sijaintitiedot ovat pakollisia. </i>
+        <form action="/create" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            <label for="restaurant_name">Ravintolan nimi:</label><br>
+            <input type="text" name="restaurant_name"><br><br>
+            <label for="opening_hours">Aukioloajat:</label><br>
+            <input type="text" name="opening_hours"><br><br>
+            <label for="restaurant_description">Kuvaus:</label><br>
+            <textarea name="restaurant_description" ></textarea><br><br>
 
-<button type="submit">Lisää ravintola</button>
+            <p><u>Koordinaatit:</u></p>
+            <p>Anna koordinaatit WGS84-koordinaattijärjestelmässä (EPSG:4326) desimaaliluvulla ilmaistuna. Muista käyttää pistettä!</p>
+            <label for="latitude">Leveysaste:</label><br>
+            <input type="float" name="latitude"><br><br>
+            <label for="longitude">Pituusaste:</label><br>
+            <input type="float" name="longitude"><br><br>
 
-{% if errors %}
-{% for error in errors %}
-<p>{{ error }}</p>
-{% endfor %}
-{% endif %}
+            <button type="submit">Lisää ravintola</button>
+            
+            <div class="error">
+                {% if errors %}
+                    {% for error in errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </form>
+    </div>
 
-</form>
+    <nav>
+        <ul>
+            <li><a href="/">Takaisin etusivulle</a></li>
+        </ul>
+    </nav>
 
-<a href="/">Takaisin</a>
+</body>
