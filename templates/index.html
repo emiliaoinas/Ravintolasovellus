@@ -1,40 +1,36 @@
-<style>
-    #map {
-        width: 800px;
-        height: 500px;
-        margin-bottom: 10px;
-    }
-    .container {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-    p {
-    margin: 10px 0;
-    padding: 0;
-    }
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-</style>
-
-<div class="container">
+<body>
+    <div class="header">
     <h1>Alueesi ravintolat</h1>
-    <div id="map">
-        {{ map | safe }}
     </div>
-    <p><a href="/sorted_restaurants">Katso parhaat ravintolat arvostelujen perusteella</a></p>
-    <p><a href="/find_restaurant">Etsi ravintoloita</a></p>
+
+    <div class="content">
+        <div class="map">
+            {{ map | safe }}
+        </div>
+        <p><a href="/sorted_restaurants">Katso parhaat ravintolat arvostelujen perusteella</a></p>
+        <p><a href="/find_restaurant">Etsi ravintoloita</a></p>
         {% if session.get("user_id") %}
-            <p>Olet kirjautunut sisään.</p>
-            <p></p>
             {% if not admin_status %}
                 <a href="/admin_application">Hae ylläpitäjäksi</a>
             {% elif admin_status %}
-                <p><b><a href="/new">Lisää uusi ravintola</a></b></p>
+                    <p><b><a href="/new">Lisää uusi ravintola</a></b></p>
             {% endif %}
-            <p><a href="/logout">Kirjaudu ulos</a></p>
-        {% else %}
-            <p><a href="/login">Kirjaudu sisään voidaksesi lisätä arvosteluja ja ravintoloita</a></p>
         {% endif %}
-</div>
+    </div>
+
+    <nav>
+        <ul>
+            {% if session.get("user_id") %}
+            <li><p>Olet kirjautunut sisään.</p></li>
+            <li><p><a href="/logout">Kirjaudu ulos</a></p></li>
+            {% else %}
+            <li><p><a href="/login">Kirjaudu sisään voidaksesi lisätä arvosteluja</a></p></li>
+            <li><p><a href="/register">Luo uusi käyttäjätunnus</a></p></li>
+            {% endif %}
+        </ul>
+    </nav>
+</body>
