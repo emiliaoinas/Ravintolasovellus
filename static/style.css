@@ -1,0 +1,74 @@
+body {
+    margin: auto;
+    max-width: 45em;
+    font-family: 'Helvetica', serif;
+    background: rgb(219, 241, 224);
+}
+
+nav li {
+    display: inline-block;
+    padding: .5em 1em;
+    border-radius: .5em;
+    margin: .2em;
+    background: white;
+}
+
+nav ul {
+    padding: 0;
+}
+
+.header {
+    background: rgb(107, 185, 124);
+    text-align: center;
+    font-weight: bold;
+    padding: 2em 1em;
+    font-size: 1em;
+    border-radius: .5em
+}
+
+.content {
+    background: white;
+    text-align: left;
+    padding: 1.5em 2em;
+    border-radius: .5em
+ }
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 0.2em;
+}
+
+form {
+    display: block;
+    padding: .5em;
+    background: rgb(253, 221, 221);
+    border-radius: .5em
+}
+
+map {
+    width: 90%;
+    height: 500px;
+    display: block;
+}
+
+.link {
+    text-align: left;
+    text-decoration-line: underline;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.error {
+    color: red;
+    font-weight: bolder;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid;
+    padding: 8px;
+    text-align: left;
+}
