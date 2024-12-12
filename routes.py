@@ -20,7 +20,7 @@ def login():
     if users.login(username, password):
         return redirect("/")
     else:
-        error_message = "Salasana tai käyttäjänimi on väärin"
+        error_message = "Salasana tai käyttäjänimi on väärin!"
         return render_template("login.html", error = error_message)
 
 @app.route("/logout")
@@ -37,7 +37,7 @@ def register():
         username = request.form["username"]
         password = request.form["password"]
         if username == "" or password == "" or bool(username.strip()) == False or bool(password.strip()) == False:
-            errors.append("Käyttäjänimi tai salasana ei voi olla tyhjä tai koostua pelkistä välilyönneistä")
+            errors.append("Käyttäjänimi tai salasana ei voi olla tyhjä tai koostua pelkistä välilyönneistä!")
         sql = text("SELECT 1 FROM users WHERE username = :username")
         result = db.session.execute(sql, {"username": username}).fetchone()
         if result:
@@ -56,11 +56,11 @@ def admin_application():
         application = request.form["application"]
         terms_accepted = "terms" in request.form
         if not terms_accepted:
-            errors.append("Voidaksesi hakea ylläpitäjäksi, sinun on hyväksyttävä ehdot")
+            errors.append("Voidaksesi hakea ylläpitäjäksi, sinun on hyväksyttävä ehdot!")
         if len(application.strip().split()) < 5:
-            errors.append("Hakemuksesi on liian lyhyt, minimivaatimus on 5 sanaa")
+            errors.append("Hakemuksesi on liian lyhyt, minimivaatimus on 5 sanaa!")
         if users.is_admin():
-            errors.append("Olet jo ylläpitäjä, sinun ei tarvitse hakea uudelleen")
+            errors.append("Olet jo ylläpitäjä, sinun ei tarvitse hakea uudelleen!")
         if len(errors) == 0:
             users.admin_application(application)
             return redirect("/")
@@ -130,13 +130,13 @@ def submit_review():
     try:
         rating = int(request.form["rating"])
         if rating < 1 or rating > 5:
-            errors.append("Arvosanan on oltava 1-5") 
+            errors.append("Arvosanan on oltava 1-5!") 
     except ValueError:
-        errors.append("Arvosanan on oltava kokonaisluku välillä 1-5.")
+        errors.append("Arvosanan on oltava kokonaisluku välillä 1-5!")
 
     comment = request.form["comment"].strip()
     if not comment:
-        errors.append("Kommentti ei voi olla tyhjä tai koostua pelkistä välilyönneistä")
+        errors.append("Kommentti ei voi olla tyhjä tai koostua pelkistä välilyönneistä!")
     restaurant_id = request.form["restaurant_id"]
     
     if len(errors) == 0:
