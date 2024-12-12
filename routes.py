@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session, abort
 from sqlalchemy.sql import text
 import restaurants, reviews, users, maps
 from db import db
@@ -53,6 +53,8 @@ def admin_application():
         return render_template("admin_application.html")
     if request.method == "POST":
         errors = []
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         application = request.form["application"]
         terms_accepted = "terms" in request.form
         if not terms_accepted:
@@ -91,6 +93,8 @@ def search_restaurants():
 @app.route("/create", methods=["POST"])
 def create():
     errors = []
+    if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
     name = request.form["restaurant_name"]
     coordinates = (request.form["latitude"], request.form["longitude"])
     latitude_str = coordinates[0].strip()
@@ -127,6 +131,8 @@ def restaurant(id):
 @app.route("/submit_review", methods=["POST"])
 def submit_review():
     errors = []
+    if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
     try:
         rating = int(request.form["rating"])
         if rating < 1 or rating > 5:
@@ -155,12 +161,16 @@ def submit_review():
 
 @app.route("/delete_review", methods=["POST"])
 def delete_review():
+    if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
     review_id = request.form["review_id"]
     reviews.delete_review(review_id)
     return redirect("/")
 
 @app.route("/delete_restaurant", methods=["POST"])
 def delete_restaurant():
+    if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
     restaurant_id = request.form["restaurant_id"]
     restaurants.delete_restaurant(restaurant_id)
     return redirect("/")
@@ -168,6 +178,8 @@ def delete_restaurant():
 @app.route("/add_group", methods=["POST"])
 def add_group():
     errors = []
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403
     restaurant_id = request.form["restaurant_id"]
     group_name = request.form["group_name"]
     if bool(group_name.strip()) == False:
