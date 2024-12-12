@@ -1,15 +1,35 @@
-<form action="/login" method="post">
-Käyttäjätunnus: <input type="text" name="username">
-<p>
-Salasana: <input type="password" name="password">
-<p>
-<input type="submit" value="Kirjaudu">
-  
-{% if error %}
-<p>{{ error }}</p>
-{% endif %}
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-</form>
-<a href="/register">Luo uusi käyttäjätunnus</a>
-<p></p>
-<a href="/">Takaisin</a>
+<body>
+    <div class="header">
+        <h1>Kirjaudu sisään</h1>
+    </div>
+    <div class="content">
+        <form action="/login" method="post">
+        Käyttäjätunnus: <input type="text" name="username">
+        <p>
+        Salasana: <input type="password" name="password">
+        <p>
+        <input type="submit" value="Kirjaudu">
+        <div class="error">
+            {% if error %}
+                <p>{{ error }}</p>
+            {% endif %}
+        </div>
+
+        </form>
+
+        <div class="link">
+            <a href="/register">Luo uusi käyttäjätunnus</a>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="/">Takaisin etusivulle</a></li>
+        </ul>
+    </nav>
+
+</body>
