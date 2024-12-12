@@ -1,16 +1,35 @@
-<form action="/register" method="post">
-Käyttäjätunnus: <input type="text" name="username">
-<p>
-Salasana: <input type="password" name="password">
-<p>
-<input type="submit" value="Vahvista tunnuksen luominen">
-  
-{% if errors %}
-{% for error in errors %}
-<p>{{ error }}</p>
-{% endfor %}
-{% endif %}
-  
-</form>
-<p></p>
-<a href="/">Takaisin</a>
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<body>
+    <div class="header">
+        <h1>Rekisteröidy käyttäjäksi</h1>
+    </div>
+
+    <div class="content">
+        <form action="/register" method="post">
+        Käyttäjätunnus: <input type="text" name="username">
+        <p>
+        Salasana: <input type="password" name="password">
+        <p>
+        <input type="submit" value="Vahvista tunnuksen luominen">
+
+        <div class="error">
+            {% if errors %}
+            {% for error in errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+        
+        </form>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="/">Takaisin etusivulle</a></li>
+        </ul>
+    </nav>
+
+</body>
