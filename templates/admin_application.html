@@ -1,26 +1,43 @@
-<h1>Ylläpitäjähakemus</h1>
-<p>Sivuston ylläpitäjät pitävät huolen siitä, että kaikkien on mukava käyttää sivustoa ja kommentit pysyvät asiallisina. Ylläpitäjät myös voivat lisätä uusia ravintoloita sivustolle.</p>
-<p>Kommentteja saa poistaa vain, jos ne ovat loukkaavia. Asiallisia, rakentavaa kritiikkiä sisältäviä kommetteja ei siis tule poistaa, vaikka ne olisivat negatiivisia.</p>
-<p>Ylläpitäjien tulee toimia yhteisen edun mukaan ja reilusti.</p>
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<h2>Täytä alla olevat tiedot hakeaksesi ylläpitäjäksi</h2>
-<form action="/admin_application" method="post">
-    <input type="checkbox" id="terms" name="terms">
-    Lupaan toimia reilusti, noudattaa sääntöjä, ja pitää sivuston mukavana paikkana kaikille.
-    <p>
-    <p> Alla voit perustella lyhyesti, miksi haluat olla ylläpitäjä ja miksi sopisit tähän rooliin.</p>
-    <textarea id="application" name="application"></textarea>
-    <p>
-    <input type="submit" value="Lähetä hakemus">
+<body>
+    <div class="header">
+    <h1>Ylläpitäjähakemus</h1>
+    </div>
 
-{% if errors %}
-{% for error in errors %}
-<p>{{ error }}</p>
-{% endfor %}
-{% elif not error %}
-<a href="/"></a>
-{% endif %}
+    <div class="content">
+        <p>Sivuston ylläpitäjät pitävät huolen siitä, että kaikkien on mukava käyttää sivustoa ja kommentit pysyvät asiallisina. Ylläpitäjät myös voivat lisätä uusia ravintoloita sivustolle.</p>
+        <p>Kommentteja saa poistaa vain, jos ne ovat loukkaavia. Asiallisia, rakentavaa kritiikkiä sisältäviä kommetteja ei siis tule poistaa, vaikka ne olisivat negatiivisia.</p>
+        <p>Ylläpitäjien tulee toimia yhteisen edun mukaan ja reilusti.</p>
 
-</form>
-<p></p>
-<a href="/">Takaisin</a>
+        <h2>Täytä alla olevat tiedot hakeaksesi ylläpitäjäksi</h2>
+        <form action="/admin_application" method="post">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            <input type="checkbox" id="terms" name="terms">
+            Lupaan toimia reilusti, noudattaa sääntöjä, ja pitää sivuston mukavana paikkana kaikille.
+            <p>
+            <p> Alla voit perustella lyhyesti, miksi haluat olla ylläpitäjä ja miksi sopisit tähän rooliin.</p>
+            <textarea id="application" name="application"></textarea>
+            <p>
+            <input type="submit" value="Lähetä hakemus">
+
+        {% if errors %}
+            {% for error in errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        {% elif not error %}
+            <a href="/"></a>
+        {% endif %}
+
+        </form>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="/">Takaisin etusivulle</a></li>
+        </ul>
+    </nav>
+    
+</body>
