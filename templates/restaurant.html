@@ -1,72 +1,100 @@
-<h1>{{ restaurant[1] }}</h1>
-{% if admin_status %}
-<form action="/delete_restaurant" method="POST">
-<input type="hidden" name="restaurant_id" value="{{ restaurant_id}}">
-<button type="submit">Poista ravintola</button>
-</form>
-{% endif %}
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-{% if restaurant[2]|length > 0 %}
-<p><i>Aukioloajat:</i> {{ restaurant[2] }}</p>
-{% endif %}
-{% if restaurant[3]|length > 0 %}
-<p><i>Kuvaus:</i> {{ restaurant[3] }}</p>
-{% endif %}
-<p>
-<b>Arvostelut</b>
-{% if reviews %}
-{% for review in reviews %}
-<ul>
-<li>Arvosana: {{ review.rating }} </li>
-<li>Kommentti: {{ review.comment }} </li>
-{% if admin_status %}
-<form action="/delete_review" method="POST">
-<input type="hidden" name="review_id" value="{{ review.id}}">
-<button type="submit">Poista arvostelu</button>
-</form>
-{% endif %}
-</ul>
-{% endfor %}
-<p>
-{% else %}
-<p>Tämä ravintola ei ole saanut vielä arvosteluja</p>
-{% endif %}
+<body>
+    <div class="header">
+        <h1>{{ restaurant[1] }}</h1>
+    </div>
 
-<p><b>Ravintola kuuluu ryhmiin:</b></p>
-{% if groups %}
-<ul>
-    {% for group in groups %}
-    <li>{{ group[2] }}</li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>Ravintola ei kuulu vielä mihinkään ryhmään</p>
-{% endif %}
+    <div class="content">
+        {% if admin_status %}
+        <form action="/delete_restaurant" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            <input type="hidden" name="restaurant_id" value="{{ restaurant_id}}">
+            <button type="submit">Poista ravintola</button>
+        </form>
+        {% endif %}
 
-{% if admin_status %}
-<u>Lisää ravintola ryhmään:</u>
-<form action="/add_group" method="POST">
-    <input type="hidden" name="restaurant_id" value="{{ restaurant_id}}">
-    <input type="text" name="group_name" placeholder="Ryhmän nimi">
-    <button type="submit">Lisää ravintola ryhmään</button>
-</form>
-{% endif %}
+        {% if restaurant[2]|length > 0 %}
+            <p><i>Aukioloajat:</i> {{ restaurant[2] }}</p>
+        {% endif %}
+        {% if restaurant[3]|length > 0 %}
+            <p><i>Kuvaus:</i> {{ restaurant[3] }}</p>
+        {% endif %}
+        <p>
+        <b>Arvostelut:</b>
+        {% if reviews %}
+            {% for review in reviews %}
+            <ul>
+                <li>Arvosana: {{ review.rating }} </li>
+                <li>Kommentti: {{ review.comment }} </li>
 
-{% if session.user_id %}
-<u>Kirjoita arvostelu:</u>
-<form action="/submit_review" method="POST">
-<input type="hidden" name="restaurant_id" value="{{ restaurant_id }}">
-<input type="number" name="rating" placeholder="Arvosana 1-5" min="1" max="5" required><br>
-<textarea name="comment" placeholder="Kommentit" required></textarea><br>
-<button type="submit">Lisää arvostelu</button>
+                {% if admin_status %}
+                <form action="/delete_review" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    <input type="hidden" name="review_id" value="{{ review.id}}">
+                    <button type="submit">Poista arvostelu</button>
+                </form>
+                {% endif %}
 
-{% if errors %}
-{% for error in errors %}
-<p>{{ error }}</p>
-{% endfor %}
-{% endif %}
+            </ul>
+            {% endfor %}
+        <p>
+        {% else %}
+        <p>Tämä ravintola ei ole saanut vielä arvosteluja</p>
+        {% endif %}
 
-</form>
-{% endif %}
+        <p><b>Ravintola kuuluu ryhmiin:</b></p>
+        {% if groups %}
+        <ul>
+            {% for group in groups %}
+                <li>{{ group[2] }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>Ravintola ei kuulu vielä mihinkään ryhmään.</p>
+        {% endif %}
 
-<a href="/">Takaisin</a>
+        {% if admin_status %}
+        <u>Lisää ravintola ryhmään:</u>
+        <form action="/add_group" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            <input type="hidden" name="restaurant_id" value="{{ restaurant_id}}">
+            <input type="text" name="group_name" placeholder="Ryhmän nimi">
+            <button type="submit">Lisää ravintola ryhmään</button>
+        </form>
+        {% endif %}
+
+        {% if session.user_id %}
+        <u>Kirjoita arvostelu:</u>
+        <form action="/submit_review" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            <input type="hidden" name="restaurant_id" value="{{ restaurant_id }}">
+            <input type="number" name="rating" placeholder="Arvosana 1-5"><br>
+            <textarea name="comment" placeholder="Kommentit"></textarea><br>
+            <button type="submit">Lisää arvostelu</button>
+
+            <div class="error">
+                {% if errors %}
+                    {% for error in errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+        </form>
+        {% endif %}
+
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="/">Takaisin etusivulle</a></li>
+            {% if not session.get("user_id") %}
+            <li><a href="/login">Kirjaudu sisään voidaksesi lisätä arvosteluja</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+</body>
