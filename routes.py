@@ -41,7 +41,7 @@ def register():
         sql = text("SELECT 1 FROM users WHERE username = :username")
         result = db.session.execute(sql, {"username": username}).fetchone()
         if result:
-            errors.append("Käyttäjänimi on jo käytössä, valitse toinen nimi")
+            errors.append("Käyttäjänimi on jo käytössä, valitse toinen nimi!")
         if len(errors) > 0:
             return render_template("register.html", errors = errors)
         if users.register(username, password):
