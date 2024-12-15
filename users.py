@@ -2,6 +2,7 @@ from db import db
 from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy.sql import text
+import secrets
 
 def register(username, password):
     hash_value = generate_password_hash(password)
@@ -11,6 +12,7 @@ def register(username, password):
     return login(username, password)
 
 def login(username, password):
+    session["csrf_token"] = secrets.token_hex(16)
     sql = text("SELECT id, password FROM users WHERE username=:username")
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
