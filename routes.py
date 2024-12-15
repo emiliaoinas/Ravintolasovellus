@@ -117,6 +117,7 @@ def new():
 
 @app.route("/restaurant/<int:id>")
 def restaurant(id):
+    admin_status = users.is_admin()
     sql = text("SELECT id, restaurant_name, opening_hours, restaurant_description FROM restaurants WHERE id=:id")
     result = db.session.execute(sql, {"id": id})
     restaurant = result.fetchone()
