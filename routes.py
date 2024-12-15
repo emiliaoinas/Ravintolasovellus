@@ -179,7 +179,7 @@ def delete_restaurant():
 def add_group():
     errors = []
     if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403
+        abort(403)
     restaurant_id = request.form["restaurant_id"]
     group_name = request.form["group_name"]
     if bool(group_name.strip()) == False:
