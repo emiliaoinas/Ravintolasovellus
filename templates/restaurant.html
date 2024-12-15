@@ -4,10 +4,11 @@
 
 <body>
     <div class="header">
-        <h1>{{ restaurant[1] }}</h1>
+        <h1>Ravintolasovellus</h1>
     </div>
 
     <div class="content">
+        <h2>{{ restaurant[1] }}</h2>
         {% if admin_status %}
         <form action="/delete_restaurant" method="POST">
             <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
